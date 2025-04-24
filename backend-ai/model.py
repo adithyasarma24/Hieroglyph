@@ -5,13 +5,9 @@ from utils import long_segment, segment, stitch, strip, fix_bullets
 
 model_name = "google/flan-t5-base"
 
-bnb_config = BitsAndBytesConfig(
-    load_in_8bit=True
-)
-
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-device = "cuda" if torch.cuda.is_available() else "cpu"
-base_model = AutoModelForSeq2SeqLM.from_pretrained(model_name, quantization_config=bnb_config, device_map="auto")
+device = "cpu"
+base_model = AutoModelForSeq2SeqLM.from_pretrained(model_name, device_map="auto")
 base_model = PeftModel.from_pretrained(base_model, "./adaptors/summarize", adapter_name="summarize")
 base_model.load_adapter("./adaptors/bulletify", adapter_name="bulletify")
 base_model.load_adapter("./adaptors/paraphrase", adapter_name="paraphrase")

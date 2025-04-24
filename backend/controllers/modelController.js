@@ -10,7 +10,7 @@ const handleSummarize = async (req, res) => {
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
     }
-    await axios.post('/summarize', { text })
+    await axios.post('/summarize', { text }, { timeout: 60000 })
         .then(response => {
             const data = response.data;
             return res.status(200).json(data);
@@ -31,7 +31,7 @@ const handleBulletify = async (req, res) => {
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
     }
-    await axios.post('/bulletify', { text })
+    await axios.post('/bulletify', { text }, { timeout: 60000 })
         .then(response => {
             const data = response.data;
             return res.status(200).json(data);
@@ -52,7 +52,7 @@ const handleParaphrase = async (req, res) => {
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
     }
-    await axios.post('/paraphrase', { text })
+    await axios.post('/paraphrase', { text }, { timeout: 60000 })
         .then(response => {
             const data = response.data;
             return res.status(200).json(data);
@@ -73,7 +73,7 @@ const handleProofread = async (req, res) => {
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
     }
-    await axios.post('/proofread', { text })
+    await axios.post('/proofread', { text }, { timeout: 60000 })
         .then(response => {
             const data = response.data;
             return res.status(200).json(data);

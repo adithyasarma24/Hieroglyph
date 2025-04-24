@@ -11,7 +11,7 @@ const app = express()
 const port = 3001
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://hieroglyph-yad7.onrender.com',
   credentials: true
 }));
 
