@@ -30,6 +30,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(session({
   store: new pgSession({
     pool: pgPool,
+    createTableIfMissing: true,
     tableName: 'session'
   }),
   secret: 'hieroglyph-secret-key',
