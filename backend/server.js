@@ -8,7 +8,7 @@ import modelRoutes from "./routes/modelRoutes.js";
 
 const app = express()
 
-const port = 3001
+const port = process.env.PORT;
 
 app.use(cors({
   origin: 'https://hieroglyph-yad7.onrender.com',
@@ -22,8 +22,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // true in production (HTTPS)
+    secure: true, // true in production (HTTPS)
     httpOnly: true,
+    sameSite: 'none',
     maxAge: 1000 * 60 * 60 * 24 // 1 day
   }
 }));
