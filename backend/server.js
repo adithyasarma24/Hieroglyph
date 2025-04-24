@@ -28,11 +28,11 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
-  store: new pgSession({
-    pool: pgPool,
-    createTableIfMissing: true,
-    tableName: 'session'
-  }),
+  // store: new pgSession({
+  //   pool: pgPool,
+  //   createTableIfMissing: true,
+  //   tableName: 'session'
+  // }),
   secret: 'hieroglyph-secret-key',
   resave: false,
   saveUninitialized: false,

@@ -1,11 +1,12 @@
 import db from '../config/knex.js';
+const userId = "8bb68d17-f91a-41b7-a3b7-905fcdbf89fd";
 const getDocuments = async (req, res) => {
   try {
     // We assume Passport attaches the user object on req
-    const userId = req.user && req.user.user_id;
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID not found.' });
-    }
+    // const userId = req.user && req.user.user_id;
+    // if (!userId) {
+    //   return res.status(400).json({ error: 'User ID not found.' });
+    // }
 
     // Query the database for the user's documents
     const documents = await db('documents')
@@ -21,10 +22,11 @@ const getDocuments = async (req, res) => {
 };
 
 const createDocument = async (req, res) => {
-  const userId = req.user && req.user.user_id;
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID not found.' });
-  }
+
+  // const userId = req.user && req.user.user_id;
+  // if (!userId) {
+  //   return res.status(400).json({ error: 'User ID not found.' });
+  // }
   try {
     const document = await db('documents').insert({
       user_id: userId,
@@ -39,10 +41,10 @@ const createDocument = async (req, res) => {
 
 const getDocument = async (req, res) => {
   const { documentId } = req.params;
-  const userId = req.user && req.user.user_id;
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID not found.' });
-  }
+  // const userId = req.user && req.user.user_id;
+  // if (!userId) {
+  //   return res.status(400).json({ error: 'User ID not found.' });
+  // }
   try {
     const document = await db('documents').where({ user_id: userId, document_id: documentId }).first(['content','title']);
     if (!document) {
@@ -58,10 +60,10 @@ const getDocument = async (req, res) => {
 const updateDocumentContent = async (req, res) => {
   const { documentId } = req.params;
   const { content } = req.body;
-  const userId = req.user && req.user.user_id;
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID not found.' });
-  }
+  // const userId = req.user && req.user.user_id;
+  // if (!userId) {
+  //   return res.status(400).json({ error: 'User ID not found.' });
+  // }
   try {
     const document = await db('documents').where({ user_id: userId, document_id: documentId }).update({ content, updated_at: new Date() });
     if (!document || document.length === 0) {
@@ -77,11 +79,11 @@ const updateDocumentContent = async (req, res) => {
 const renameDocument = async (req, res) => {
   const { documentId } = req.params;
   const { title } = req.body;
-  const userId = req.user && req.user.user_id;
+  // const userId = req.user && req.user.user_id;
 
-  if (!userId) {
-    return res.status(400).json({ error: 'User ID not found.' });
-  }
+  // if (!userId) {
+  //   return res.status(400).json({ error: 'User ID not found.' });
+  // }
   if (!title || typeof title !== 'string') {
     return res.status(400).json({ error: 'Invalid title.' });
   }
@@ -104,7 +106,7 @@ const renameDocument = async (req, res) => {
 
 const deleteDocument = async (req, res) => {
   const { documentId } = req.params;
-  const userId = req.user && req.user.user_id;
+  // const userId = req.user && req.user.user_id;
 
   if (!userId) {
     return res.status(400).json({ error: 'User ID not found.' });
