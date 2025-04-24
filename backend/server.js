@@ -10,11 +10,14 @@ import connectPgSimple from 'connect-pg-simple';
 
 const pgSession = connectPgSimple(session);
 const pgPool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DB_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
+pgPool.connect()
+    .then(() => console.log('✅ Connected to PostgreSQL!'))
+    .catch(err => console.error('❌ PG connection error:', err));
 
 const app = express()
 
@@ -28,11 +31,11 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
-  // store: new pgSession({
-  //   pool: pgPool,
-  //   createTableIfMissing: true,
-  //   tableName: 'session'
-  // }),
+  store: new pgSession({
+    pool: pgPool,
+    tableName: 'session',
+    createTableIfMissing: true
+  }),
   secret: 'hieroglyph-secret-key',
   resave: false,
   saveUninitialized: false,
@@ -56,6 +59,9 @@ app.get('/api/me', (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: "Welcome to hieroglyph api."});
+});
 
 app.use('/api/auth', authRouter);
 app.use('/api/documents', documentRoutes);
