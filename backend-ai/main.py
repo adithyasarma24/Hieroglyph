@@ -16,7 +16,7 @@ api.add_middleware(
 class InputText(BaseModel):
   text: str
 
-@app.get("/")
+@api.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI application!"}
 
