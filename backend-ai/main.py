@@ -16,6 +16,10 @@ api.add_middleware(
 class InputText(BaseModel):
   text: str
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the FastAPI application!"}
+
 @api.post("/summarize/")
 def call_summarize(input_data: InputText):
   text = input_data.text
