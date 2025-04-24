@@ -5,6 +5,16 @@ import authRouter from './routes/authRoutes.js'
 import documentRoutes from './routes/documentRoutes.js'
 import cors from 'cors'
 import modelRoutes from "./routes/modelRoutes.js";
+import pg from 'pg';
+import connectPgSimple from 'connect-pg-simple';
+
+const pgSession = connectPgSimple(session);
+const pgPool = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 const app = express()
 
@@ -18,6 +28,10 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
+  store: new pgSession({
+    pool: pgPool,
+    tableName: 'session'
+  }),
   secret: 'hieroglyph-secret-key',
   resave: false,
   saveUninitialized: false,

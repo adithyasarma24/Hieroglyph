@@ -3,9 +3,9 @@ import axios from '../config/axiosConfig.js';
 const handleSummarize = async (req, res) => {
     const { text } = req.body;
 
-    if(!req.user) {
-        return res.status(404).send('User Not Found');
-    }
+    // if(!req.user) {
+    //     return res.status(404).send('User Not Found');
+    // }
 
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
@@ -24,9 +24,9 @@ const handleSummarize = async (req, res) => {
 const handleBulletify = async (req, res) => {
     const { text } = req.body;
 
-    if(!req.user) {
-        return res.status(404).send('User Not Found');
-    }
+    // if(!req.user) {
+    //     return res.status(404).send('User Not Found');
+    // }
 
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
@@ -45,9 +45,9 @@ const handleBulletify = async (req, res) => {
 const handleParaphrase = async (req, res) => {
     const { text } = req.body;
 
-    if(!req.user) {
-        return res.status(404).send('User Not Found');
-    }
+    // if(!req.user) {
+    //     return res.status(404).send('User Not Found');
+    // }
 
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
@@ -66,9 +66,9 @@ const handleParaphrase = async (req, res) => {
 const handleProofread = async (req, res) => {
     const { text } = req.body;
 
-    if(!req.user) {
-        return res.status(404).send('User Not Found');
-    }
+    // if(!req.user) {
+    //     return res.status(404).send('User Not Found');
+    // }
 
     if(!text && text.length === 0) {
         return res.status(400).send('Wrong Submission');
